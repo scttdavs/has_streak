@@ -36,16 +36,20 @@ class User < ActiveRecord::Base
 end
 ```
 
-Now I can display the user's streak:
+Now I can display the user's streak or longest streak:
 
 ```ruby
 user.streak(:posts) # => number of days in a row that this user wrote a post.
+
+user.longest_streak(:posts) # => largest streak a user has of posts.
 ```
 
 The <code>streak</code> instance method can be called with any association:
 
 ```ruby
 user.streak(:other_association)
+
+user.longest_streak(:other_association)
 ```
 
 This gem assumes that the model you want to track has a <code>created_at</code> timestamp.
