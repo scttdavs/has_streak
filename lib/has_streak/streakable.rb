@@ -8,6 +8,10 @@ module HasStreak
       def streak(association)
         Streak.new(self, association).length
       end
+
+      def longest_streak(association)
+        Streak.new(self, association).longest_streak
+      end
     end
   end
 end
