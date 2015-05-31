@@ -20,6 +20,21 @@ describe HasStreak::Streakable do
       end
     end
 
+    context "when a user has two streaks, return longest" do
+      it "returns a streak of 4" do
+        user.posts.create(content: "hello", created_at: 20.days.ago)
+        user.posts.create(content: "hello", created_at: 19.day.ago)
+        user.posts.create(content: "hello", created_at: 18.days.ago)
+        user.posts.create(content: "hello", created_at: 17.day.ago)
+
+        user.posts.create(content: "hello", created_at: 2.days.ago)
+        user.posts.create(content: "hello", created_at: 1.day.ago)
+        user.posts.create(content: "hello", created_at: DateTime.current)
+
+        expect(user.longest_streak(:posts)).to eq(4)
+      end
+    end
+
     context "when a user didn't post today" do
       it "returns streak of zero" do
         user.posts.create(content: "hello", created_at: 3.days.ago)

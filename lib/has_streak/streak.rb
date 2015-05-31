@@ -34,14 +34,15 @@ module HasStreak
       streak
     end
 
-    def to_streaks(days)
-      return days if days.empty?
+    def all_streaks
+      all_days = days.clone
+      return all_days if all_days.empty?
 
-      streaks = [ [ days.shift ] ]
+      streaks = [ [ all_days.pop ] ]
 
-      while days.any?
+      while all_days.any?
         current_streak = streaks.last
-        current_day = days.shift
+        current_day = all_days.pop
   
         if current_streak.last.tomorrow == current_day
           current_streak.push current_day
@@ -50,18 +51,18 @@ module HasStreak
         end
       end
 
-      return streaks
+      streaks
 
     end
 
     def determine_longest_streak
       longest = 0
 
-      to_streaks(days).each do |streak|
+      all_streaks.each do |streak|
         longest = streak.length if streak.length > longest
       end
 
-      return longest
+      longest
     end
 
     def first_day_in_collection_is_today?
